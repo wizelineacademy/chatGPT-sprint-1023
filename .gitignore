@@ -6,6 +6,7 @@ tmp/
 # Ignore keys (replace 'your_keys_directory' and 'your_keys_filename' with the actual names)
 # your_keys_directory/
 *.key
+*.env
 
 # Ignore the README.org file
 README.org
