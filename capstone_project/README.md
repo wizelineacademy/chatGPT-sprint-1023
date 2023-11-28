@@ -26,6 +26,9 @@ Before plunging into the project:
 -   Set up your development environment (e.g., Python environment, code editor).
 -   Procure an OpenAI API key from [OpenAI&rsquo;s platform](https://www.openai.com/).
 -   IMPORTANT: Place your API key within a `.env` file as `API_KEY=your_actual_key_here`. This ensures your credentials remain private and are not unintentionally shared.
+-   Make sure the \`capstone_project\` directory is your current working directory.
+-   Make sure you have the correct version of Python installed (defined in the `.python-version` file).
+-   Run \`pip install -r requirements.txt\` to install the required dependencies.
 
 
 <a id="org9c4e782"></a>
