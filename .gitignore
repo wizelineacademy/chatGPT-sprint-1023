@@ -3,6 +3,7 @@
 *.log
 tmp/
 venv/
+**/__pycache__/
 
 # Ignore keys (replace 'your_keys_directory' and 'your_keys_filename' with the actual names)
 # your_keys_directory/
