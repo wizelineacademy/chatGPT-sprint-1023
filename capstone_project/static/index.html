@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Upload CV and Job Description</h2>
+
+<form action="/tailor" method="post" enctype="multipart/form-data" id="upload-form">
+  <label for="cv">Candidate's CV:</label><br>
+  <input type="file" id="cv" name="cv" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain" required><br>
+  <label for="jobdesc">Job Description:</label><br>
+  <input type="file" id="jobdesc" name="jobdesc" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain" required><br>
+  <input type="submit" value="Submit" id="submit-button" disabled>
+</form>
+
+<script>
+  // Clear input fields when page is loaded and on history back
+  const clearInputs = function() {
+    document.getElementById('cv').value = '';
+    document.getElementById('jobdesc').value = '';
+    document.getElementById('submit-button').disabled = true;
+  };
+
+  window.addEventListener('load', clearInputs);
+  window.addEventListener('pageshow', clearInputs);
+
+  document.getElementById('upload-form').addEventListener('change', function() {
+    var cv = document.getElementById('cv').value;
+    var jobdesc = document.getElementById('jobdesc').value;
+    if (cv && jobdesc) {
+      document.getElementById('submit-button').disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
