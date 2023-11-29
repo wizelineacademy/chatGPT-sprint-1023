@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tailored CV</title>
+</head>
+{% if not basics %}
+    <body>
+        <h1>Sorry, we couldn't find any information in your CV.</h1>
+        <p>Please try again with a different CV.</p>
+    </body>
+{% else %}
+<body>
+    <h1>{{ basics.name }}</h1>
+    <h2>{{ basics.label }}</h2>
+    <p>{{ basics.email }}</p>
+    <p>{{ basics.phone }}</p>
+    <p>{{ basics.website }}</p>
+    <p>{{ basics.summary }}</p>
+
+    {% if work %}
+      <h2>Work Experience</h2>
+      {% for job in work %}
+          <h3>{{ job.company }}</h3>
+          <p>{{ job.position }}</p>
+          <p>{{ job.startDate }} - {{ job.endDate }}</p>
+          <p>{{ job.summary }}</p>
+      {% endfor %}
+    {% endif %}
+
+    {% if education %}
+      <h2>Education</h2>
+      {% for school in education %}
+          <h3>{{ school.institution }}</h3>
+          <p>{{ school.area }}</p>
+          <p>{{ school.studyType }}</p>
+          <p>{{ school.startDate }} - {{ school.endDate }}</p>
+      {% endfor %}
+    {% endif %}
+
+    {% if skills %}
+    <h2>Skills</h2>
+    <ul>
+      {% for skill in skills %}
+          <li>
+            {{ skill.name }}
+            <!-- {% if skill.level %}: {{ skill.level }}{% endif %} -->
+          </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if jobDescriptionAlignment.matches %}
+      <h2>Job Description Alignment</h2>
+      <h3>Matches</h3>
+      <ul>
+      {% for match in jobDescriptionAlignment.matches %}
+          <li>{{ match }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    {% if jobDescriptionAlignment.gaps %}
+      <h3>Gaps</h3>
+      <ul>
+      {% for gap in jobDescriptionAlignment.gaps %}
+          <li>{{ gap }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if skillsGapAnalysis %}
+      <h2>Skills Analysis</h2>
+      <h3>Existing Skills</h3>
+      <ul>
+      {% for skill in skillsGapAnalysis.existingSkills %}
+          <li>{{ skill }}</li>
+      {% endfor %}
+      </ul>
+    
+      <h3>Missing Skills</h3>
+      <ul>
+      {% for skill in skillsGapAnalysis.missingSkills %}
+          <li>{{ skill }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+</body>
+{% endif %}
+</html>
