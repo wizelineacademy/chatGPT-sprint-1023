@@ -39,32 +39,25 @@ TailorCV, when processing a user's CV and a job description, will exclusively ge
   - startDate (string)
   - endDate (string)
 
-- skills (array of objects)
-  - name (string)
-  - level (string)
+- skills (array of strings)
 
 All derived from the user's original CV. It repurposes the content of each job experience to create a compelling summary that highlights the skills and experiences that could be a fit for the role in the job details. Additionally, it features 'jobDescriptionAlignment' and 'skillsGapAnalysis' sections, tailored to the specific job description. 
 
 - jobDescriptionAlignment (object)
-  - matches (array of strings)
-  - gaps (array of strings)
-
-- skillsGapAnalysis (object)
-  - existingSkills (array of strings)
-  - missingSkills (array of strings)
+  - summary (string) - an analysis text of how well or bad the CV aligns with the job description
+  - matches (array of strings) - a list of the user's skills that match the job description
+  - gaps (array of strings) - a list of the user's skills that do not match the job description
+  - strengths (array of strings) - a list of the user's skills that are most relevant to the job description
+  - weaknesses (array of strings) - a list of the user's skills that are least relevant to the job description
 
 TailorCV also includes an additional 'job' section , specifically tailored to represent the details of the job description uploaded by the user. This 'job' section will follow the schema.org `JobPosting` type, ensuring structured and relevant information presentation. It will encompass details like:
 
 - job (object)
   - title (string)
   - description (string)
-  - company
-  - keyMatchedSkills
-  - alignments
-    - keyDutiesAndResponsibilities
-  - analysisSummary
+  - company (string)
 
-The output is strictly the complete valid JSON content, with no introductory or concluding text, with no code formatting, ensuring a focused and uncluttered presentation. This functionality is designed for users who require a clean, direct JSON output for various applications, ensuring ease of use and integration. TailorCV's commitment to accuracy and clarity in presentation remains paramount, offering users a comprehensive and precise tool for job applications.
+The output is strictly the complete valid JSON content, with no introductory or concluding text, with no code formatting, with no code comments, ensuring a focused and uncluttered presentation. This functionality is designed for users who require a clean, direct JSON output for various applications, ensuring ease of use and integration. TailorCV's commitment to accuracy and clarity in presentation remains paramount, offering users a comprehensive and precise tool for job applications.
 """
 
     def request_openai(self, message, role="system"):
