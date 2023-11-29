@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Tailored CV</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 {% if not basics %}
     <body>
@@ -10,24 +11,29 @@
     </body>
 {% else %}
 <body>
+  <header>
     <h1>{{ basics.name }}</h1>
     <h2>{{ basics.label }}</h2>
     <p>{{ basics.email }}</p>
     <p>{{ basics.phone }}</p>
     <p>{{ basics.website }}</p>
     <p>{{ basics.summary }}</p>
-
+  </header>
+  <main>
     {% if work %}
+    <section>
       <h2>Work Experience</h2>
       {% for job in work %}
-          <h3>{{ job.company }}</h3>
-          <p>{{ job.position }}</p>
-          <p>{{ job.startDate }} - {{ job.endDate }}</p>
-          <p>{{ job.summary }}</p>
+        <h3>{{ job.company }}</h3>
+        <p>{{ job.position }}</p>
+        <p>{{ job.startDate }} - {{ job.endDate }}</p>
+        <p>{{ job.summary }}</p>
       {% endfor %}
+    </section>
     {% endif %}
 
     {% if education %}
+    <section>
       <h2>Education</h2>
       {% for school in education %}
           <h3>{{ school.institution }}</h3>
@@ -35,9 +41,11 @@
           <p>{{ school.studyType }}</p>
           <p>{{ school.startDate }} - {{ school.endDate }}</p>
       {% endfor %}
+    </section>
     {% endif %}
 
     {% if skills %}
+    <section>      
     <h2>Skills</h2>
     <ul>
       {% for skill in skills %}
@@ -47,9 +55,11 @@
           </li>
       {% endfor %}
     </ul>
+    </section>
     {% endif %}
 
     {% if jobDescriptionAlignment.matches %}
+    <section>
       <h2>Job Description Alignment</h2>
       <h3>Matches</h3>
       <ul>
@@ -57,17 +67,22 @@
           <li>{{ match }}</li>
       {% endfor %}
       </ul>
+    </section>
     {% endif %}
+
     {% if jobDescriptionAlignment.gaps %}
+    <section>
       <h3>Gaps</h3>
       <ul>
       {% for gap in jobDescriptionAlignment.gaps %}
           <li>{{ gap }}</li>
       {% endfor %}
       </ul>
+    </section>
     {% endif %}
 
-    {% if skillsGapAnalysis %}
+    <!-- {% if skillsGapAnalysis %}
+    <section>
       <h2>Skills Analysis</h2>
       <h3>Existing Skills</h3>
       <ul>
@@ -82,7 +97,9 @@
           <li>{{ skill }}</li>
       {% endfor %}
       </ul>
-    {% endif %}
+    </section>
+    {% endif %} -->
+  </main>
 </body>
 {% endif %}
 </html>

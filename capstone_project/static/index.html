@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Upload CV and Job Description</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
 <body>
 
-<h2>Upload CV and Job Description</h2>
-
-<form action="/tailor" method="post" enctype="multipart/form-data" id="upload-form">
-  <label for="cv">Candidate's CV:</label><br>
-  <input type="file" id="cv" name="cv" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain" required><br>
-  <label for="jobdesc">Job Description:</label><br>
-  <input type="file" id="jobdesc" name="jobdesc" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain" required><br>
-  <input type="submit" value="Submit" id="submit-button" disabled>
-</form>
+  <main>
+    <section>
+      <h2>Upload CV and Job Description</h2>
+      <form action="/tailor" method="post" enctype="multipart/form-data" id="upload-form">
+        <label for="cv">Candidate's CV:</label><br>
+        <input type="file" id="cv" name="cv" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain" required><br>
+        <label for="jobdesc">Job Description:</label><br>
+        <input type="file" id="jobdesc" name="jobdesc" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain" required><br>
+        <input type="submit" value="Submit" id="submit-button" disabled>
+      </form>
+    </section>
+</main>
 
 <script>
   // Clear input fields when page is loaded and on history back
