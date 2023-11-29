@@ -54,12 +54,12 @@ def sanitize(message):
             'education',
             'skills',
             'jobDescriptionAlignment',
-            'skillsGapAnalysis'
         ]
         # Ensure that the message contains the job description
         job_schema = [
-            'company',
             'title',
+            'description',
+            'company',
         ]
         valid = False
         
@@ -83,7 +83,6 @@ def render_tailored_cv(data):
         'education': data['education'],
         'skills': data['skills'],
         'jobDescriptionAlignment': data['jobDescriptionAlignment'],
-        'skillsGapAnalysis': data['skillsGapAnalysis'],
         'job': data['job']
     }
     return render_template(template_file, **template_data)
