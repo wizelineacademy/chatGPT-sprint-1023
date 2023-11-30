@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tailored CV</title>
+    <title>
+      Tailored CV{% if basics %} - {{ basics.name }}{% endif %}{% if job %} / {{job.title}} @ {{ job.company }}{% endif %}</title>
+    </title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <style>
       @media print {
@@ -105,9 +107,79 @@
               {% endfor %}
             </ul>
           {% endif %}
+
+          {% if jobDescriptionAlignment.scores %}
+            <h3>Skills analysis</h3>
+            <p>The closer the skill is to the edge of the chart, the better it meets the job description. You can interact with the graph.</p>
+            <div id="chart-container"></div>
+          {% endif %}
         </section>
       {% endif %}
     </main>
   </body>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script>
+    /*
+    - scores (array) - a list of scores for each of the skills in the CV, TailorCV infers these values from the JD.
+      - skill (string)
+      - relevance: 0 to 4 (0 = skill not in JD, 4 = skill in JD and is very relevant)
+      - expertise: 0 to 4 (0 = skill not in CV, 4 = skill in CV and expertise >= JD expertise requirement)
+      - alignment: 0 to 4 (0 = relevance is 0 and expertise is 0, and 4 means the skill is very relevant and expertise is equal or higher to what is required in the JD.
+      - progression: 0 to 4 (0 = skill is part of a larger skill, 4 = skill is a larger skill)
+      - currency: 0 to 4 (0 = skill is not current, 4 = skill is current)
+      - genericness: 0 to 4 (0 = skill is very specific, 4 = skill is very generic)
+      - adaptability: 0 to 4 (0 = skill cannot be adapted, 4 = skill can be adapted)
+    */
+    const scores = {{ jobDescriptionAlignment.scores|safe }};
+    // Prepare the data for the chart
+    var chartData = scores.map(function(score) {
+      return {
+        type: 'area',
+        name: score.skill,
+        data: [score.relevance, score.expertise, score.alignment, score.progression, score.currency, score.genericness, score.adaptability],
+        pointPlacement: 'on'
+      };
+    });
+    window.addEventListener('load', function() {
+      plotChart();
+    });
+
+    function plotChart() {
+      // Create the chart
+      Highcharts.chart('chart-container', {
+        title: { text: 'How aligned my skills are' },
+        chart: {
+          polar: true,
+          type: 'line'
+        },
+        pane: {
+          size: '80%'
+        },
+        xAxis: {
+          categories: ['Relevance', 'Expertise', 'Alignment', 'Progression', 'Currency', 'Genericness', 'Adaptability'],
+          tickmarkPlacement: 'on',
+          lineWidth: 0
+        },
+        yAxis: {
+          gridLineInterpolation: 'polygon',
+          lineWidth: 0,
+          min: 0
+        },
+        tooltip: {
+          shared: true,
+          pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y:,.0f}</b><br/>'
+        },
+        legend: {
+          align: 'right',
+          verticalAlign: 'middle',
+          layout: 'vertical'
+        },
+        series: chartData
+      });
+    }
+  </script>
 {% endif %}
 </html>

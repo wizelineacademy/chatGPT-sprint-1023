@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-
   <main>
     <section>
+      <h1>TailorCV - Generate a CV tailored to a job description</h1>
       <h2>Upload CV and Job Description</h2>
       <form action="/tailor" method="post" enctype="multipart/form-data" id="upload-form">
         <label for="cv">Candidate's CV:</label><br>
@@ -26,16 +26,22 @@
     document.getElementById('jobdesc').value = '';
     document.getElementById('submit-button').disabled = true;
   };
-
   window.addEventListener('load', clearInputs);
   window.addEventListener('pageshow', clearInputs);
 
+  // Enable submit button when both CV and job description are uploaded
   document.getElementById('upload-form').addEventListener('change', function() {
     var cv = document.getElementById('cv').value;
     var jobdesc = document.getElementById('jobdesc').value;
     if (cv && jobdesc) {
       document.getElementById('submit-button').disabled = false;
     }
+  });
+
+  // Disable submit button while form is submitting
+  document.getElementById('upload-form').addEventListener('submit', function() {
+    document.getElementById('submit-button').disabled = true;
+    document.getElementById('submit-button').value = 'Loading...';
   });
 </script>
 

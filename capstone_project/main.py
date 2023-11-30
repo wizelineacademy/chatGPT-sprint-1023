@@ -25,21 +25,21 @@ def tailor():
         # Read the CV and job description files
         cv_text = decodeFile(cv_file)
         jobdesc_text = decodeFile(jobdesc_file)
+
         try:
             # Prompt the chatbot with the CV and job description
-            response = bot.prompt(cv_text, jobdesc_text)
+            response = bot.tailorCV(cv_text, jobdesc_text)
+            json_response = sanitizeJSON(response)
         except:
             # If the chatbot fails, return an error message
-            response = "An error occurred while processing the CV and job description."
-        # Sanitize the response
-        json_response = sanitize(response)
+            json_response = {"error": "An error occurred while processing the CV and job description."}
         if 'error' in json_response:
             return json_response['error'], 400
         return render_tailored_cv(json_response)
     else:
         return "No file(s) uploaded", 400
     
-def sanitize(message):
+def sanitizeJSON(message):
     # The message is a JSON string wrapped in backticks
     # like: ```json\n{...}\n``` so we need to remove them
     message = message.replace('```json\n', '')
@@ -72,7 +72,8 @@ def sanitize(message):
         print(">>>message", message, "<<<message")
         message = {"error": "An error occurred while processing the CV and job description."}
     return message
-    
+
+
 def render_tailored_cv(data):
     print("Rendering tailored CV")
     print(data)
