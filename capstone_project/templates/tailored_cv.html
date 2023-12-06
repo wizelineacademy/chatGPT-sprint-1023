@@ -133,6 +133,8 @@
       - genericness: 0 to 4 (0 = skill is very specific, 4 = skill is very generic)
       - adaptability: 0 to 4 (0 = skill cannot be adapted, 4 = skill can be adapted)
     */
+    const basics = {{ basics|safe }};
+    const job = {{ job|safe }};
     const scores = {{ jobDescriptionAlignment.scores|safe }};
     // Prepare the data for the chart
     var chartData = scores.map(function(score) {
@@ -150,7 +152,9 @@
     function plotChart() {
       // Create the chart
       Highcharts.chart('chart-container', {
-        title: { text: 'How aligned my skills are' },
+        title: {
+          text: `${basics.name} skills analysis - ${job.title} @ ${job.company}`
+        },
         chart: {
           polar: true,
           type: 'line'

@@ -92,8 +92,11 @@ This functionality is designed for users who require a clean, direct JSON output
         # Set the retrieved API key for the OpenAI library
         client = OpenAI(api_key=self.api_key)
         # Create a chat completion with the provided message and role
-        response = client.chat.completions.create(model="gpt-4-1106-preview",
-        messages=[{"role": role, "content": message}])
+        response = client.chat.completions.create(
+          model="gpt-4-1106-preview",
+          messages=[{"role": role, "content": message}],
+          temperature=0.1,
+        )
 
         # Return the message content from the API response
         return response.choices[0].message.content

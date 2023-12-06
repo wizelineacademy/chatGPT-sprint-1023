@@ -14,7 +14,7 @@
         <input type="file" id="cv" name="cv" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain" required><br>
         <label for="jobdesc">Job Description:</label><br>
         <input type="file" id="jobdesc" name="jobdesc" accept=".pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, text/plain" required><br>
-        <input type="submit" value="Submit" id="submit-button" disabled>
+        <input type="submit" value="Submit" id="submit-button">
       </form>
     </section>
 </main>
@@ -29,6 +29,40 @@
   window.addEventListener('load', clearInputs);
   window.addEventListener('pageshow', clearInputs);
 
+  const animateButton = function() {
+    const txtDuration = 8000;
+    var submitButton = document.getElementById('submit-button');
+    submitButton.value = 'Loading';
+    var ellipsisIndex = 0;
+    var ellipsisTexts = ['.', '..', '...', ''];
+    var buttonTextIndex = 0;
+    var buttonTexts = [
+      'Loading',
+      'Reading your CV',
+      'Reading Job Description',
+      'Analyzing your skills',
+      'Generating your tailored CV',
+      'Almost there',
+      'Loading your tailored CV'
+    ];
+  
+    var ellipsisInterval = setInterval(function() {
+      submitButton.value = buttonTexts[buttonTextIndex] + ellipsisTexts[ellipsisIndex];
+      ellipsisIndex = (ellipsisIndex + 1) % ellipsisTexts.length;
+    }, 500); // Change ellipsis every 500ms
+  
+    var buttonTextInterval = setInterval(function() {
+      buttonTextIndex = (buttonTextIndex + 1) % buttonTexts.length;
+    }, txtDuration); // Change button text every 5 seconds
+  
+    // Stop the animations after 20 seconds
+    setTimeout(function() {
+      clearInterval(ellipsisInterval);
+      clearInterval(buttonTextInterval);
+      animateButton();
+    }, buttonTexts.length * txtDuration);
+  };
+
   // Enable submit button when both CV and job description are uploaded
   document.getElementById('upload-form').addEventListener('change', function() {
     var cv = document.getElementById('cv').value;
@@ -42,6 +76,7 @@
   document.getElementById('upload-form').addEventListener('submit', function() {
     document.getElementById('submit-button').disabled = true;
     document.getElementById('submit-button').value = 'Loading...';
+    animateButton();
   });
 </script>
 
